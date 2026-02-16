@@ -223,6 +223,43 @@
   .annotation p + p { margin-top: 0.5rem; }
   .annotation em { font-style: italic; color: var(--text); }
 
+  /* --- Methodology Section --- */
+  .method-section { background: white; border: 1px solid var(--border); padding: 2rem 2.25rem; margin: 2rem 0; }
+  .method-section h3 { font-family: 'EB Garamond', Georgia, serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: var(--text); }
+  .method-section h4 { font-family: 'EB Garamond', Georgia, serif; font-size: 0.95rem; font-weight: 600; margin: 1.25rem 0 0.5rem; color: var(--accent); padding-bottom: 0.3rem; border-bottom: 1px dotted var(--border); }
+  .method-section p { font-size: 0.82rem; line-height: 1.7; color: var(--muted); margin-bottom: 0.5rem; }
+  .method-section p:last-child { margin-bottom: 0; }
+  .method-section em { color: var(--text); }
+  .method-section strong { color: var(--text); font-weight: 600; }
+  .method-section ul, .method-section ol { font-size: 0.82rem; line-height: 1.7; color: var(--muted); margin: 0.5rem 0 0.75rem 1.5rem; }
+  .method-section li { margin-bottom: 0.35rem; }
+  .method-section li strong { color: var(--text); }
+
+  /* Confidence tiers */
+  .conf-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 0.75rem 0 1rem; }
+  .conf-row { display: grid; grid-template-columns: 100px 140px 1fr; gap: 1rem; align-items: start; padding: 0.65rem 0.85rem; border-radius: 3px; font-size: 0.8rem; line-height: 1.5; }
+  .conf-row-high { background: rgba(45, 106, 79, 0.05); border-left: 3px solid var(--good); }
+  .conf-row-mod { background: rgba(184, 134, 11, 0.05); border-left: 3px solid var(--mixed); }
+  .conf-row-low { background: rgba(155, 34, 38, 0.04); border-left: 3px solid var(--bad); }
+  .conf-tier { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .conf-tier-high { color: var(--good); }
+  .conf-tier-mod { color: var(--mixed); }
+  .conf-tier-low { color: var(--bad); }
+  .conf-compounds { font-weight: 600; color: var(--text); font-size: 0.78rem; }
+  .conf-detail { color: var(--muted); font-size: 0.78rem; }
+
+  /* Sensitivity table */
+  .sens-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; border: 1px solid var(--border); margin: 0.75rem 0 1rem; }
+  .sens-table thead th { background: var(--table-header); font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 0.8rem; padding: 0.5rem 0.75rem; text-align: left; border-bottom: 2px solid var(--text); }
+  .sens-table tbody td { padding: 0.45rem 0.75rem; border-bottom: 1px solid #e0ddd6; font-size: 0.78rem; }
+  .sens-table tbody tr:nth-child(even) { background: var(--table-stripe); }
+  .sens-var { font-weight: 600; color: var(--text); }
+  .sens-effect { color: var(--muted); }
+  .sens-mag { font-family: 'EB Garamond', Georgia, serif; font-weight: 700; }
+  .sens-mag-high { color: var(--bad); }
+  .sens-mag-mod { color: var(--mixed); }
+  .sens-mag-low { color: var(--good); }
+
   /* --- References --- */
   .references { margin: 2.5rem 0 1rem; }
   .references h3 { font-family: 'EB Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
@@ -252,6 +289,7 @@
     .scorecard-grid { grid-template-columns: 1fr; }
     .compare-grid { grid-template-columns: 1fr; }
     .compare-card-body { grid-template-columns: 1fr; }
+    .conf-row { grid-template-columns: 1fr; gap: 0.25rem; }
   }
 
   @media print {
@@ -811,6 +849,130 @@
   <p>The cost scales proportionally. Terpene loss increases from ~25% to ~38% &mdash; roughly half again more flavor stripped. The &ldquo;cleaner but blander&rdquo; tradeoff becomes more pronounced. For users who prioritize smoothness and harm reduction over flavor fidelity, this is a net win. For terp-chasers, it's a net loss.</p>
   <p><strong>What doesn't change:</strong> Cannabinoid delivery remains functionally identical (~93&ndash;95% preserved). CO remains untouched by either system. The fundamental chemistry hasn't changed &mdash; the recycler just dials the volume knob on the same hydrophobicity-dependent filter.</p>
   <p><strong>Practical bottom line:</strong> A recycler is the harm-reduction-optimized choice. A standard perc is the flavor-optimized choice. Both preserve potency equally. Neither addresses CO.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART IV: METHODOLOGY & LIMITATIONS -->
+<!-- ============================================================ -->
+<div class="section-divider">
+  <h2>IV. Methodology &amp; Limitations</h2>
+  <div class="divider-line"></div>
+</div>
+
+<div class="method-section">
+  <h3>Data Source Classification</h3>
+  <p>The values presented in this analysis draw from two distinct categories of evidence. Transparency about which is which is essential for anyone evaluating or sharing these figures.</p>
+
+  <h4>A. Confidence Tiers by Compound</h4>
+  <p>Each compound's interaction rate is assigned a confidence tier based on the directness and quality of available evidence:</p>
+
+  <div class="conf-grid">
+    <div class="conf-row conf-row-high">
+      <div class="conf-tier conf-tier-high">High<br>Confidence</div>
+      <div class="conf-compounds">Cannabinoids, HCN, CO, Aldehydes</div>
+      <div class="conf-detail"><strong>Basis:</strong> Published partition coefficients (log P &asymp; 7 for THC; Thomas &amp; ElSohly 2016), measured Henry's Law constants (CO: K<sub>H</sub> &asymp; 9.5 &times; 10<sup>&minus;4</sup> mol/L&middot;atm; Sander 2015), and quantified smoke composition profiles (Moir 2008, Graves 2020). These are physical constants with well-established values. The directionality and approximate magnitude of the interaction rates are robust. The &plusmn; range on these figures is likely &lt;5 percentage points under typical conditions.</div>
+    </div>
+    <div class="conf-row conf-row-mod">
+      <div class="conf-tier conf-tier-mod">Moderate<br>Confidence</div>
+      <div class="conf-compounds">Phenols, Particulate, Tars, Terpenes</div>
+      <div class="conf-detail"><strong>Basis:</strong> Solubility class data, polarity grouping, and published smoke condensate studies (Rickert 1982) establish the general range. Specific percentage values are interpolated from known polarity/solubility relationships rather than direct gas-chromatography-on-filtered-smoke measurements. The directionality is solid; the exact number could shift &plusmn;8&ndash;12 points depending on system conditions. Terpene loss (~25%) is the least directly measured &mdash; it's inferred from intermediate log P values (typically 2&ndash;4 for common monoterpenes) and user-reported flavor attenuation.</div>
+    </div>
+    <div class="conf-row conf-row-low">
+      <div class="conf-tier conf-tier-low">Modeled /<br>Interpolated</div>
+      <div class="conf-compounds">All recycler-specific values (&#916; column), PAH rates, Lipid/Wax rates</div>
+      <div class="conf-detail"><strong>Basis:</strong> No published study has directly measured the output composition of a recycler vs. a standard percolator under controlled conditions with cannabis smoke. The recycler deltas are <em>modeled</em> using established mass-transfer engineering principles: multi-stage gas absorption theory (Treybal 1980), surface renewal models (Danckwerts 1951), and diffusion rate equations scaled by estimated contact time and surface area multipliers (Cussler 2009). The physics is sound; the specific magnitudes (+5, +15, etc.) carry wider uncertainty (&plusmn;5&ndash;15 points). PAH and lipid rates in the standard perc column are also less constrained than the polar compounds.</div>
+    </div>
+  </div>
+
+  <h4>B. Interpolation Logic: How Recycler Values Were Derived</h4>
+  <p>The recycler estimates follow a consistent methodology for each compound class:</p>
+
+  <ol>
+    <li><strong>Diffusion-limited compounds</strong> (aldehydes, HCN, phenols): Removal scales with contact time and interfacial surface area per Fick's Law and Henry's Law equilibrium. The recycler provides ~3&ndash;4&times; contact time and ~2.5&ndash;4&times; surface area. However, compounds already near saturation-level removal (&gt;85%) experience diminishing returns &mdash; you can't remove more than 100%. The model applies a decaying exponential approach to the solubility ceiling, yielding the +5 to +8 point gains seen. The math: <em>R<sub>recycler</sub> &asymp; 1 &minus; (1 &minus; R<sub>std</sub>)<sup>n</sup></em>, where n = effective number of equilibrium stages (~2&ndash;3 for a typical recycler).</li>
+    <li><strong>Condensation-limited compounds</strong> (tars, lipids, PAHs): Removal scales with the number of thermal shock events and total cooling surface. Each recycler pass provides an additional condensation opportunity. The model treats each pass as an independent condensation event with the same per-pass efficiency as the standard perc. Compounds with lower baseline removal (PAHs at 45%) see larger absolute gains because they have more &ldquo;room&rdquo; to improve &mdash; hence the +15 for PAHs vs. +10 for tars.</li>
+    <li><strong>Mechanical filtration</strong> (particulate): Additional turbulent mixing in the recycler loop increases gas&ndash;liquid contact completeness. Modeled as increased collision probability per pass. Gains are moderate (+6) because single-pass mechanical capture is already quite efficient.</li>
+    <li><strong>Hydrophobic compounds</strong> (cannabinoids, CO): Log P &gt; 6 or extremely low K<sub>H</sub> values mean that even multiplicative increases in contact parameters produce negligible changes. The model correctly predicts +2 point gains &mdash; essentially within measurement noise. This is the most confident prediction in the recycler column, because the insensitivity to contact time is itself well-established.</li>
+    <li><strong>Intermediate compounds</strong> (terpenes): Terpenes sit at log P ~2&ndash;4, making them partially susceptible to both diffusion and condensation. The recycler amplifies both pathways. The +13 point increase is the most uncertain single value in the entire analysis, because it depends on the specific terpene mix (myrcene vs. limonene vs. linalool have meaningfully different polarities), temperature, and whether condensation or dissolution dominates for each species.</li>
+  </ol>
+
+  <h4>C. Sensitivity Analysis: What Moves the Numbers</h4>
+  <p>The following variables have the greatest impact on actual performance. Users should understand these as the main sources of real-world variance:</p>
+
+  <table class="sens-table">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Impact Magnitude</th>
+        <th>Direction of Effect</th>
+        <th>Most Affected Compounds</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="sens-var">Water Temperature</td>
+        <td class="sens-mag sens-mag-high">High</td>
+        <td class="sens-effect">Cold water (&lt;10&deg;C) increases gas solubility per Henry's Law (improves polar removal) and enhances condensation. Also <em>reduces</em> terpene loss slightly by lowering vapor pressure at the interface. Warm water (&gt;25&deg;C) degrades all interaction rates.</td>
+        <td>All diffusion compounds; terpenes (protective); tars</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Draw Rate / Speed</td>
+        <td class="sens-mag sens-mag-high">High</td>
+        <td class="sens-effect">Slower draws increase residence time, improving all rates. Fast draws reduce contact time and create larger, less efficient bubbles. Can swing diffusion-limited compounds by &plusmn;10&ndash;15 points.</td>
+        <td>Aldehydes, HCN, phenols, terpenes</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Water Volume / Depth</td>
+        <td class="sens-mag sens-mag-mod">Moderate</td>
+        <td class="sens-effect">More water = longer bubble transit path and more thermal mass for condensation. Diminishing returns beyond ~8 cm depth for diffusion; condensation benefits continue longer.</td>
+        <td>Tars, particulate, PAHs</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Percolator Hole Size</td>
+        <td class="sens-mag sens-mag-mod">Moderate</td>
+        <td class="sens-effect">Smaller holes = smaller bubbles = more surface area per unit gas volume. Directly increases mass transfer coefficient. Fine-diffusion percs (honeycomb, fritted disc) can approach recycler-level surface area in a single pass.</td>
+        <td>All diffusion compounds</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Water Freshness / Change Frequency</td>
+        <td class="sens-mag sens-mag-mod">Moderate</td>
+        <td class="sens-effect">Saturated water has reduced concentration gradient, lowering removal for soluble compounds. Fresh water per session maintains peak performance. Primarily affects standard percs (recyclers self-mitigate via continuous flow).</td>
+        <td>Aldehydes, HCN, phenols</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Recycler Loop Count / Design</td>
+        <td class="sens-mag sens-mag-mod">Moderate</td>
+        <td class="sens-effect">More loops = more passes, but with diminishing returns per additional loop. A 2-loop recycler captures ~70% of the theoretical 4-loop improvement. Tube diameter and drain speed also matter.</td>
+        <td>All compounds (proportional to baseline sensitivity)</td>
+      </tr>
+      <tr>
+        <td class="sens-var">Combustion Temperature</td>
+        <td class="sens-mag sens-mag-low">Low&ndash;Moderate</td>
+        <td class="sens-effect">Higher combustion temps produce more aldehydes, PAHs, and CO. This changes the <em>input load</em>, not the removal rate &mdash; but total exposure is the product of both. Relevant for contextualizing harm.</td>
+        <td>Aldehydes, PAHs, CO (input quantity, not removal %)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>D. What Would Strengthen This Analysis</h4>
+  <p>For anyone with access to analytical chemistry equipment, the following experiments would convert the modeled values into measured ones:</p>
+  <ol>
+    <li><strong>GC-MS of inlet vs. outlet gas composition</strong> through both a standard perc and a recycler under controlled draw rate, water temperature, and water volume conditions. This is the definitive experiment &mdash; it directly measures what the water pulls out.</li>
+    <li><strong>Water analysis post-session</strong> via LC-MS to quantify dissolved compounds in the water column. This provides a complementary mass balance to the gas-phase measurement.</li>
+    <li><strong>Terpene-specific profiling</strong> (headspace GC) before and after filtration to quantify the actual selectivity tax on a strain-specific basis. This is the highest-value experiment for the flavor question.</li>
+    <li><strong>CO measurement</strong> via electrochemical sensor or NDIR at the mouthpiece. Simple, cheap, and would definitively confirm (or challenge) the ~4&ndash;6% removal estimate.</li>
+    <li><strong>Multi-session water saturation curve</strong> &mdash; measuring removal efficiency as water accumulates dissolved compounds over repeated use without change. This maps the degradation curve and informs optimal water change frequency.</li>
+  </ol>
+
+  <h4>E. Key Limitations &amp; Caveats</h4>
+  <ul>
+    <li><strong>No direct recycler-vs-perc empirical comparison exists in the published literature.</strong> All recycler values are modeled. The engineering principles are well-established; the application to this specific context is novel and untested.</li>
+    <li><strong>Compound interaction rates are presented as point estimates, but real values exist as ranges.</strong> A &plusmn;5&ndash;15 point uncertainty band should be mentally applied to all figures, wider for modeled values.</li>
+    <li><strong>Rates assume a single average draw.</strong> Actual sessions involve variable draw rates, cumulative water saturation, and temperature drift. First-hit performance exceeds late-session performance for polar compounds.</li>
+    <li><strong>The analysis treats each compound class as homogeneous.</strong> In reality, &ldquo;aldehydes&rdquo; includes a spectrum from formaldehyde (extremely soluble) to longer-chain aldehydes (less so). &ldquo;Terpenes&rdquo; spans log P ~2 (linalool) to ~4.5 (caryophyllene). Aggregate rates mask intra-class variation.</li>
+    <li><strong>Synergistic and competitive effects are not modeled.</strong> Multiple compounds dissolving simultaneously may compete for interfacial surface or alter water pH, affecting downstream solubility. These second-order effects are not captured.</li>
+    <li><strong>This analysis addresses water filtration only.</strong> It does not account for additional filtration mechanisms present in some setups (activated carbon, ice catchers, diffusion beads), which would alter the compound removal profile.</li>
+    <li><strong>Health claims are not made.</strong> While the analysis describes harm <em>reduction</em> mechanisms, it does not claim that water-filtered smoke is safe, only that it contains fewer of the specified harmful compounds than unfiltered smoke. Combustion inhalation carries inherent risk regardless of filtration.</li>
+  </ul>
 </div>
 
 <!-- ============================================================ -->
