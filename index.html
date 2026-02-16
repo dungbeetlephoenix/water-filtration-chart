@@ -24,6 +24,11 @@
     --bad: #9b2226;
     --mixed: #b8860b;
     --neutral: #6c757d;
+    --std: #4a6274;
+    --rec: #6a3d7a;
+    --delta-pos: #2d6a4f;
+    --delta-neg: #9b2226;
+    --delta-flat: #6c757d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,542 +39,224 @@
     color: var(--text);
     line-height: 1.6;
     padding: 3rem 2rem;
-    max-width: 1120px;
+    max-width: 1180px;
     margin: 0 auto;
   }
 
   /* --- Header --- */
-  header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid var(--text);
-  }
+  header { text-align: center; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--text); }
+  header h1 { font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.01em; line-height: 1.3; margin-bottom: 0.5rem; }
+  header .subtitle { font-family: 'EB Garamond', Georgia, serif; font-size: 1.05rem; font-style: italic; color: var(--muted); margin-bottom: 0.25rem; }
+  header .meta { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.03em; text-transform: uppercase; }
 
-  header h1 {
-    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
-    font-weight: 600;
-    font-size: 1.75rem;
-    letter-spacing: 0.01em;
-    line-height: 1.3;
-    margin-bottom: 0.5rem;
-  }
-
-  header .subtitle {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.05rem;
-    font-style: italic;
-    color: var(--muted);
-    margin-bottom: 0.25rem;
-  }
-
-  header .meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-
-  /* --- Figure wrapper --- */
-  .figure-wrapper {
-    margin: 2rem 0 2.5rem;
-  }
-
-  .figure-label {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-
-  .figure-label span {
-    font-weight: 400;
-    font-style: italic;
-    color: var(--muted);
-  }
-
-  /* --- Bar Chart --- */
-  .chart-container {
-    background: white;
-    border: 1px solid var(--border);
-    padding: 2rem 2rem 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .chart-row {
-    display: grid;
-    grid-template-columns: 200px 1fr 52px 72px;
+  /* --- Section Dividers --- */
+  .section-divider {
+    margin: 3rem 0 2rem;
+    display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 0.6rem;
   }
-
-  .chart-label {
-    font-size: 0.82rem;
-    font-weight: 500;
-    text-align: right;
-    line-height: 1.3;
-  }
-
-  .chart-label .mechanism {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 300;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .bar-track {
-    height: 22px;
-    background: var(--bar-bg);
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .bar-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-  }
-
-  .bar-fill::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: rgba(0,0,0,0.15);
-  }
-
-  .chart-value {
+  .section-divider h2 {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 0.9rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    text-align: left;
-    min-width: 40px;
+    white-space: nowrap;
   }
+  .section-divider .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* --- Figure wrapper --- */
+  .figure-wrapper { margin: 2rem 0 2.5rem; }
+  .figure-label { font-family: 'EB Garamond', Georgia, serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .figure-label span { font-weight: 400; font-style: italic; color: var(--muted); }
+
+  /* --- Bar Chart (Figure 1 - original single-system) --- */
+  .chart-container { background: white; border: 1px solid var(--border); padding: 2rem 2rem 1.5rem; margin-bottom: 0.5rem; }
+  .chart-row { display: grid; grid-template-columns: 200px 1fr 52px 72px; align-items: center; gap: 1rem; margin-bottom: 0.6rem; }
+  .chart-label { font-size: 0.82rem; font-weight: 500; text-align: right; line-height: 1.3; }
+  .chart-label .mechanism { display: block; font-size: 0.7rem; font-weight: 300; color: var(--muted); font-style: italic; }
+  .bar-track { height: 22px; background: var(--bar-bg); border-radius: 2px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 2px; position: relative; }
+  .bar-fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.15); }
+  .chart-value { font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 600; text-align: left; min-width: 40px; }
 
   .bar-heavy { background: var(--removed-heavy); }
   .bar-mod { background: var(--removed-mod); }
   .bar-trade { background: var(--tradeoff); }
   .bar-pass { background: var(--pass); }
-
   .val-heavy { color: var(--removed-heavy); }
   .val-mod { color: var(--removed-mod); }
   .val-trade { color: var(--tradeoff); }
   .val-pass { color: var(--pass); }
 
   /* Verdict badges */
-  .verdict {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    padding: 0.15rem 0.5rem;
-    border-radius: 2px;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  .verdict-good {
-    color: var(--good);
-    background: rgba(45, 106, 79, 0.08);
-    border: 1px solid rgba(45, 106, 79, 0.2);
-  }
-
-  .verdict-bad {
-    color: var(--bad);
-    background: rgba(155, 34, 38, 0.06);
-    border: 1px solid rgba(155, 34, 38, 0.18);
-  }
-
-  .verdict-mixed {
-    color: var(--mixed);
-    background: rgba(184, 134, 11, 0.07);
-    border: 1px solid rgba(184, 134, 11, 0.2);
-  }
-
-  .verdict-neutral {
-    color: var(--neutral);
-    background: rgba(108, 117, 125, 0.06);
-    border: 1px solid rgba(108, 117, 125, 0.18);
-  }
-
-  .verdict-icon {
-    font-style: normal;
-    font-size: 0.8rem;
-    line-height: 1;
-  }
+  .verdict { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; padding: 0.15rem 0.5rem; border-radius: 2px; white-space: nowrap; text-transform: uppercase; }
+  .verdict-good { color: var(--good); background: rgba(45, 106, 79, 0.08); border: 1px solid rgba(45, 106, 79, 0.2); }
+  .verdict-bad { color: var(--bad); background: rgba(155, 34, 38, 0.06); border: 1px solid rgba(155, 34, 38, 0.18); }
+  .verdict-mixed { color: var(--mixed); background: rgba(184, 134, 11, 0.07); border: 1px solid rgba(184, 134, 11, 0.2); }
+  .verdict-neutral { color: var(--neutral); background: rgba(108, 117, 125, 0.06); border: 1px solid rgba(108, 117, 125, 0.18); }
+  .verdict-icon { font-style: normal; font-size: 0.8rem; line-height: 1; }
 
   /* Category separators */
-  .category-sep {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0.6rem 0 0.4rem;
-  }
-
-  .category-sep .cat-label {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-  }
-
-  .category-sep .cat-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
+  .category-sep { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.75rem; margin: 0.6rem 0 0.4rem; }
+  .category-sep .cat-label { font-family: 'EB Garamond', Georgia, serif; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; }
+  .category-sep .cat-line { flex: 1; height: 1px; background: var(--border); }
   .cat-heavy .cat-label { color: var(--removed-heavy); }
   .cat-mod .cat-label { color: var(--removed-mod); }
   .cat-trade .cat-label { color: var(--tradeoff); }
   .cat-pass .cat-label { color: var(--pass); }
 
-  /* --- Axis --- */
-  .chart-axis {
-    display: grid;
-    grid-template-columns: 200px 1fr 52px 72px;
-    gap: 1rem;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--border);
-  }
+  /* Axis */
+  .chart-axis { display: grid; grid-template-columns: 200px 1fr 52px 72px; gap: 1rem; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+  .axis-ticks { display: flex; justify-content: space-between; }
+  .axis-ticks span { font-size: 0.7rem; color: var(--muted); }
+  .axis-label-area { text-align: right; font-size: 0.7rem; color: var(--muted); font-style: italic; padding-right: 0.5rem; }
+  .axis-verdict-label { font-size: 0.7rem; color: var(--muted); font-style: italic; text-align: center; }
 
-  .axis-ticks {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-  }
-
-  .axis-ticks span {
-    font-size: 0.7rem;
-    color: var(--muted);
-  }
-
-  .axis-label-area {
-    text-align: right;
-    font-size: 0.7rem;
-    color: var(--muted);
-    font-style: italic;
-    padding-right: 0.5rem;
-  }
-
-  .axis-verdict-label {
-    font-size: 0.7rem;
-    color: var(--muted);
-    font-style: italic;
-    text-align: center;
-  }
-
-  /* --- Legend --- */
-  .legend {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin: 1rem 0 0.5rem;
-    padding: 0.75rem 0;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-
-  .legend-swatch {
-    width: 14px;
-    height: 10px;
-    border-radius: 1px;
-  }
-
+  /* Legend */
+  .legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0 0.5rem; padding: 0.75rem 0; }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--muted); }
+  .legend-swatch { width: 14px; height: 10px; border-radius: 1px; }
   .swatch-heavy { background: var(--removed-heavy); }
   .swatch-mod { background: var(--removed-mod); }
   .swatch-trade { background: var(--tradeoff); }
   .swatch-pass { background: var(--pass); }
 
-  /* --- Scorecard (Figure 2) --- */
-  .scorecard {
-    background: white;
-    border: 1px solid var(--border);
-    padding: 2rem;
-  }
+  /* --- System Parameters Table (Table 1) --- */
+  .params-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; border: 1px solid var(--border); background: white; }
+  .params-table thead th { background: var(--table-header); font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 0.82rem; padding: 0.65rem 0.9rem; text-align: left; border-bottom: 2px solid var(--text); }
+  .params-table tbody td { padding: 0.6rem 0.9rem; border-bottom: 1px solid #e0ddd6; }
+  .params-table tbody tr:nth-child(even) { background: var(--table-stripe); }
+  .params-table .param-name { font-weight: 600; }
+  .params-table .param-desc { font-size: 0.75rem; color: var(--muted); }
+  .sys-std { color: var(--std); font-weight: 600; }
+  .sys-rec { color: var(--rec); font-weight: 600; }
 
-  .scorecard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-  }
+  /* --- Comparative Dual Bar Chart (Figure 3) --- */
+  .dual-chart { background: white; border: 1px solid var(--border); padding: 2rem 2rem 1.5rem; }
+  .dual-legend { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0 0 1rem; padding: 0.5rem 0 0.75rem; border-bottom: 1px solid var(--border); }
+  .dual-legend-item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.78rem; font-weight: 500; }
+  .dual-legend-swatch { width: 16px; height: 10px; border-radius: 1px; }
+  .swatch-std { background: var(--std); }
+  .swatch-rec { background: var(--rec); }
 
-  .score-card {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 1rem 1.1rem;
-    position: relative;
-    background: var(--bg);
-    transition: box-shadow 0.2s ease;
-  }
+  .dual-row { display: grid; grid-template-columns: 170px 1fr 100px 56px; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; }
+  .dual-row-label { font-size: 0.82rem; font-weight: 500; text-align: right; line-height: 1.25; }
+  .dual-bars { display: flex; flex-direction: column; gap: 3px; }
+  .dual-bar-track { height: 14px; background: var(--bar-bg); border-radius: 2px; overflow: hidden; }
+  .dual-bar-fill { height: 100%; border-radius: 2px; position: relative; }
+  .dual-bar-fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 1.5px; background: rgba(0,0,0,0.12); }
+  .bar-std { background: var(--std); }
+  .bar-rec { background: var(--rec); }
 
-  .score-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
+  .dual-values { display: flex; flex-direction: column; gap: 1px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
+  .dv-std { color: var(--std); }
+  .dv-rec { color: var(--rec); }
 
-  .score-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.6rem;
-  }
-
-  .score-card-name {
+  .dual-delta {
     font-family: 'EB Garamond', Georgia, serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    line-height: 1.25;
-  }
-
-  .score-card .verdict {
-    flex-shrink: 0;
-    margin-left: 0.5rem;
-  }
-
-  .score-card-stats {
-    display: flex;
-    gap: 1.25rem;
-    margin-bottom: 0.65rem;
-  }
-
-  .score-stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .score-stat-label {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  .score-stat-value {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.15rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    line-height: 1.2;
+    text-align: center;
   }
+  .delta-pos { color: var(--delta-pos); }
+  .delta-neg { color: var(--delta-neg); }
+  .delta-flat { color: var(--delta-flat); }
 
-  .score-card-insight {
-    font-size: 0.74rem;
-    color: var(--muted);
-    line-height: 1.5;
-    border-top: 1px solid var(--border);
-    padding-top: 0.55rem;
-  }
+  .dual-axis { display: grid; grid-template-columns: 170px 1fr 100px 56px; gap: 0.75rem; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
 
+  .dual-cat-sep { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0 0.25rem; }
+  .dual-cat-sep .dcat-label { font-family: 'EB Garamond', Georgia, serif; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); white-space: nowrap; }
+  .dual-cat-sep .dcat-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* --- Net Outcome Comparison Cards (Figure 4) --- */
+  .compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+  .compare-card { background: white; border: 1px solid var(--border); border-radius: 3px; padding: 1.25rem 1.4rem; }
+  .compare-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .compare-card-title { font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1rem; line-height: 1.25; }
+  .compare-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .compare-sys { padding: 0.6rem 0.75rem; border-radius: 3px; }
+  .compare-sys-std { background: rgba(74, 98, 116, 0.05); border-left: 3px solid var(--std); }
+  .compare-sys-rec { background: rgba(106, 61, 122, 0.05); border-left: 3px solid var(--rec); }
+  .compare-sys-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.2rem; }
+  .compare-sys-label-std { color: var(--std); }
+  .compare-sys-label-rec { color: var(--rec); }
+  .compare-sys-value { font-family: 'EB Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
+  .compare-insight { font-size: 0.76rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 0.6rem; }
+
+  /* --- Scorecard (Figure 2) --- */
+  .scorecard { background: white; border: 1px solid var(--border); padding: 2rem; }
+  .scorecard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .score-card { border: 1px solid var(--border); border-radius: 3px; padding: 1rem 1.1rem; background: var(--bg); transition: box-shadow 0.2s ease; }
+  .score-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .score-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
+  .score-card-name { font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 0.95rem; line-height: 1.25; }
+  .score-card .verdict { flex-shrink: 0; margin-left: 0.5rem; }
+  .score-card-stats { display: flex; gap: 1.25rem; margin-bottom: 0.65rem; }
+  .score-stat { display: flex; flex-direction: column; }
+  .score-stat-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+  .score-stat-value { font-family: 'EB Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+  .score-card-insight { font-size: 0.74rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 0.55rem; }
   .score-card-border-good { border-left: 3px solid var(--good); }
   .score-card-border-bad { border-left: 3px solid var(--bad); }
   .score-card-border-mixed { border-left: 3px solid var(--mixed); }
   .score-card-border-neutral { border-left: 3px solid var(--neutral); }
 
   /* --- Data Table --- */
-  .table-container {
-    margin: 2rem 0;
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.82rem;
-    border: 1px solid var(--border);
-  }
-
-  thead th {
-    background: var(--table-header);
-    font-family: 'EB Garamond', Georgia, serif;
-    font-weight: 600;
-    font-size: 0.82rem;
-    padding: 0.65rem 0.9rem;
-    text-align: left;
-    border-bottom: 2px solid var(--text);
-    letter-spacing: 0.02em;
-  }
-
-  tbody td {
-    padding: 0.55rem 0.9rem;
-    border-bottom: 1px solid #e0ddd6;
-    vertical-align: top;
-  }
-
+  .table-container { margin: 2rem 0; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; border: 1px solid var(--border); }
+  thead th { background: var(--table-header); font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 0.82rem; padding: 0.65rem 0.9rem; text-align: left; border-bottom: 2px solid var(--text); letter-spacing: 0.02em; }
+  tbody td { padding: 0.55rem 0.9rem; border-bottom: 1px solid #e0ddd6; vertical-align: top; }
   tbody tr:nth-child(even) { background: var(--table-stripe); }
-
   tbody tr.row-heavy { border-left: 3px solid var(--removed-heavy); }
   tbody tr.row-mod { border-left: 3px solid var(--removed-mod); }
   tbody tr.row-trade { border-left: 3px solid var(--tradeoff); }
   tbody tr.row-pass { border-left: 3px solid var(--pass); }
-
   .cell-compound { font-weight: 600; }
-  .cell-category {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    white-space: nowrap;
-  }
-
-  .tag-heavy { color: var(--removed-heavy); }
-  .tag-mod { color: var(--removed-mod); }
-  .tag-trade { color: var(--tradeoff); }
-  .tag-pass { color: var(--pass); }
-
-  .cell-rate {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .cell-notes {
-    font-size: 0.78rem;
-    color: var(--muted);
-    line-height: 1.45;
-  }
-
-  .cell-impact {
-    font-size: 0.78rem;
-    line-height: 1.45;
-  }
+  .cell-rate { font-family: 'EB Garamond', Georgia, serif; font-weight: 700; font-size: 0.95rem; }
+  .cell-notes { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+  .cell-impact { font-size: 0.78rem; line-height: 1.45; }
 
   /* --- Annotation / Summary --- */
-  .annotation {
-    margin: 2rem 0;
-    padding: 1.25rem 1.5rem;
-    background: white;
-    border-left: 3px solid var(--accent);
-    border-top: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .annotation h3 {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--accent);
-  }
-
-  .annotation p {
-    font-size: 0.84rem;
-    line-height: 1.65;
-    color: var(--muted);
-  }
-
-  .annotation p + p {
-    margin-top: 0.5rem;
-  }
-
-  .annotation em {
-    font-style: italic;
-    color: var(--text);
-  }
+  .annotation { margin: 2rem 0; padding: 1.25rem 1.5rem; background: white; border-left: 3px solid var(--accent); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .annotation h3 { font-family: 'EB Garamond', Georgia, serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent); }
+  .annotation p { font-size: 0.84rem; line-height: 1.65; color: var(--muted); }
+  .annotation p + p { margin-top: 0.5rem; }
+  .annotation em { font-style: italic; color: var(--text); }
 
   /* --- References --- */
-  .references {
-    margin: 2.5rem 0 1rem;
-  }
+  .references { margin: 2.5rem 0 1rem; }
+  .references h3 { font-family: 'EB Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .ref-list { list-style: none; counter-reset: ref-counter; }
+  .ref-list li { counter-increment: ref-counter; font-size: 0.78rem; line-height: 1.6; color: var(--muted); padding: 0.3rem 0 0.3rem 2.5rem; text-indent: -2.5rem; padding-left: 2.5rem; }
+  .ref-list li::before { content: "[" counter(ref-counter) "] "; font-weight: 600; color: var(--text); }
+  .ref-list li em { font-style: italic; }
+  sup.ref { font-size: 0.65rem; color: var(--accent); cursor: default; font-weight: 600; }
 
-  .references h3 {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ref-list {
-    list-style: none;
-    counter-reset: ref-counter;
-  }
-
-  .ref-list li {
-    counter-increment: ref-counter;
-    font-size: 0.78rem;
-    line-height: 1.6;
-    color: var(--muted);
-    padding: 0.3rem 0 0.3rem 2.5rem;
-    text-indent: -2.5rem;
-    padding-left: 2.5rem;
-  }
-
-  .ref-list li::before {
-    content: "[" counter(ref-counter) "] ";
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .ref-list li em {
-    font-style: italic;
-  }
-
-  .ref-list li a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--accent);
-  }
-
-  .ref-list li a:hover {
-    border-bottom-style: solid;
-  }
-
-  sup.ref {
-    font-size: 0.65rem;
-    color: var(--accent);
-    cursor: default;
-    font-weight: 600;
-  }
-
-  /* --- Footer --- */
-  footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.72rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
+  /* Footer */
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
   footer p + p { margin-top: 0.25rem; }
 
-  /* --- Animation --- */
-  .bar-fill { width: 0; }
-  .bar-fill.animate { transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+  /* Animation */
+  .bar-fill, .dual-bar-fill { width: 0; }
+  .bar-fill.animate, .dual-bar-fill.animate { transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 
-  /* --- Responsive --- */
+  /* Responsive */
   @media (max-width: 700px) {
     body { padding: 1.5rem 1rem; }
     header h1 { font-size: 1.35rem; }
     .chart-row { grid-template-columns: 130px 1fr 44px 66px; gap: 0.5rem; }
     .chart-label { font-size: 0.75rem; }
     .chart-axis { grid-template-columns: 130px 1fr 44px 66px; gap: 0.5rem; }
+    .dual-row { grid-template-columns: 120px 1fr 80px 44px; gap: 0.5rem; }
+    .dual-axis { grid-template-columns: 120px 1fr 80px 44px; gap: 0.5rem; }
     .scorecard-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-card-body { grid-template-columns: 1fr; }
   }
 
   @media print {
     body { padding: 1rem; }
-    .bar-fill { transition: none; }
+    .bar-fill, .dual-bar-fill { transition: none; }
   }
 </style>
 </head>
@@ -578,14 +265,19 @@
 <header>
   <h1>Aqueous Filtration Selectivity of Combustion Byproducts</h1>
   <div class="subtitle">Compound Interaction Rates by Physical Process in Water-Mediated Percolation Systems</div>
-  <div class="meta">Analytical Overview &mdash; Hydrophobicity-Dependent Separation</div>
+  <div class="meta">Standard Percolator vs. Recycler &mdash; Comparative Analysis</div>
 </header>
 
 <!-- ============================================================ -->
-<!-- Figure 1: Bar Chart with Verdict Column -->
+<!-- PART I: BASELINE (GENERAL MODEL) -->
 <!-- ============================================================ -->
+<div class="section-divider">
+  <h2>I. General Filtration Model</h2>
+  <div class="divider-line"></div>
+</div>
+
 <div class="figure-wrapper">
-  <div class="figure-label">Figure 1. <span>Estimated aqueous interaction rate (%) by compound class, with practical desirability verdict.</span></div>
+  <div class="figure-label">Figure 1. <span>Baseline aqueous interaction rate (%) by compound class, with practical desirability verdict.</span></div>
 
   <div class="chart-container">
     <div class="legend">
@@ -595,11 +287,7 @@
       <div class="legend-item"><div class="legend-swatch swatch-pass"></div> Passes through (&le;5%)</div>
     </div>
 
-    <!-- Heavily Removed -->
-    <div class="category-sep cat-heavy">
-      <span class="cat-label">Heavily Removed</span>
-      <span class="cat-line"></span>
-    </div>
+    <div class="category-sep cat-heavy"><span class="cat-label">Heavily Removed</span><span class="cat-line"></span></div>
 
     <div class="chart-row">
       <div class="chart-label">Acrolein / Aldehydes<span class="mechanism">Aqueous Diffusion</span></div>
@@ -607,28 +295,24 @@
       <div class="chart-value val-heavy">92%</div>
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">Hydrogen Cyanide<span class="mechanism">Aqueous Diffusion</span></div>
       <div class="bar-track"><div class="bar-fill bar-heavy" data-width="90"></div></div>
       <div class="chart-value val-heavy">90%</div>
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">Particulate / Ash<span class="mechanism">Mechanical Filtration</span></div>
       <div class="bar-track"><div class="bar-fill bar-heavy" data-width="88"></div></div>
       <div class="chart-value val-heavy">88%</div>
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">Phenols<span class="mechanism">Aqueous Diffusion</span></div>
       <div class="bar-track"><div class="bar-fill bar-heavy" data-width="85"></div></div>
       <div class="chart-value val-heavy">85%</div>
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">Tars (heavy fraction)<span class="mechanism">Condensation</span></div>
       <div class="bar-track"><div class="bar-fill bar-heavy" data-width="80"></div></div>
@@ -636,19 +320,13 @@
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
 
-    <!-- Moderately Removed -->
-    <div class="category-sep cat-mod">
-      <span class="cat-label">Moderately Removed</span>
-      <span class="cat-line"></span>
-    </div>
-
+    <div class="category-sep cat-mod"><span class="cat-label">Moderately Removed</span><span class="cat-line"></span></div>
     <div class="chart-row">
       <div class="chart-label">Lipids / Waxes<span class="mechanism">Condensation</span></div>
       <div class="bar-track"><div class="bar-fill bar-mod" data-width="70"></div></div>
       <div class="chart-value val-mod">70%</div>
       <div><span class="verdict verdict-neutral"><i class="verdict-icon">&#8226;</i> Neutral</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">PAHs<span class="mechanism">Condensation + Partial Diffusion</span></div>
       <div class="bar-track"><div class="bar-fill bar-mod" data-width="45"></div></div>
@@ -656,12 +334,7 @@
       <div><span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Partial</span></div>
     </div>
 
-    <!-- Tradeoff Zone -->
-    <div class="category-sep cat-trade">
-      <span class="cat-label">Tradeoff Zone</span>
-      <span class="cat-line"></span>
-    </div>
-
+    <div class="category-sep cat-trade"><span class="cat-label">Tradeoff Zone</span><span class="cat-line"></span></div>
     <div class="chart-row">
       <div class="chart-label">Terpenes<span class="mechanism">Partial Diffusion + Condensation</span></div>
       <div class="bar-track"><div class="bar-fill bar-trade" data-width="25"></div></div>
@@ -669,19 +342,13 @@
       <div><span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Cost</span></div>
     </div>
 
-    <!-- Passes Through -->
-    <div class="category-sep cat-pass">
-      <span class="cat-label">Passes Through</span>
-      <span class="cat-line"></span>
-    </div>
-
+    <div class="category-sep cat-pass"><span class="cat-label">Passes Through</span><span class="cat-line"></span></div>
     <div class="chart-row">
       <div class="chart-label">Cannabinoids<span class="mechanism">Minimal Interaction</span></div>
       <div class="bar-track"><div class="bar-fill bar-pass" data-width="5"></div></div>
       <div class="chart-value val-pass">~5%</div>
       <div><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-label">Carbon Monoxide<span class="mechanism">Minimal Diffusion</span></div>
       <div class="bar-track"><div class="bar-fill bar-pass" data-width="4"></div></div>
@@ -689,16 +356,9 @@
       <div><span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Risk</span></div>
     </div>
 
-    <!-- Axis -->
     <div class="chart-axis">
       <div class="axis-label-area">Compound</div>
-      <div class="axis-ticks">
-        <span>0%</span>
-        <span>25%</span>
-        <span>50%</span>
-        <span>75%</span>
-        <span>100%</span>
-      </div>
+      <div class="axis-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
       <div></div>
       <div class="axis-verdict-label">Outcome</div>
     </div>
@@ -706,224 +366,436 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- Figure 2: Practical Scorecard -->
+<!-- PART II: SYSTEM COMPARISON -->
 <!-- ============================================================ -->
+<div class="section-divider">
+  <h2>II. Standard Percolator vs. Recycler</h2>
+  <div class="divider-line"></div>
+</div>
+
+<div class="annotation" style="margin-top:0;">
+  <h3>System Architecture Differences</h3>
+  <p>A <em>standard percolator</em> provides a single pass of smoke through a submerged diffuser (downstem slits or showerhead holes) into a static water column. Contact is brief: one burst of bubbles rising through ~5&ndash;10 cm of water.</p>
+  <p>A <em>recycler</em> continuously loops water and smoke through two or more chambers via drain tubes, creating repeated gas&ndash;liquid contact cycles within a single draw. This multiplies effective contact time, increases total bubble surface area, and maintains fresher water at the interface (less saturated). The tradeoff: everything water-interactive gets hit harder &mdash; including terpenes.</p>
+</div>
+
+<!-- Table 1: System Parameters -->
 <div class="figure-wrapper">
-  <div class="figure-label">Figure 2. <span>Practical filtration scorecard &mdash; what the system does well, where it costs you, and where it fails.</span></div>
+  <div class="figure-label">Table 1. <span>Physical parameter comparison between standard percolator and recycler architectures.</span></div>
+  <div class="table-container">
+    <table class="params-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Standard Perc</th>
+          <th>Recycler</th>
+          <th>Effect on Filtration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="param-name">Water Contact Passes</td>
+          <td class="sys-std">1 pass</td>
+          <td class="sys-rec">2&ndash;4 passes</td>
+          <td class="param-desc">Each pass is another opportunity for polar dissolution and condensation. Multiplies interaction probability for soluble compounds.</td>
+        </tr>
+        <tr>
+          <td class="param-name">Effective Contact Time</td>
+          <td class="sys-std">~0.3&ndash;0.5 s</td>
+          <td class="sys-rec">~1.0&ndash;2.0 s</td>
+          <td class="param-desc">Longer contact allows more complete equilibration per Henry's Law. Approaches theoretical maximum for highly soluble gases.</td>
+        </tr>
+        <tr>
+          <td class="param-name">Bubble Surface Area</td>
+          <td class="sys-std">Baseline (1&times;)</td>
+          <td class="sys-rec">~2.5&ndash;4&times;</td>
+          <td class="param-desc">More surface area = faster mass transfer rate. Diffusion-limited compounds (aldehydes, HCN) benefit most.</td>
+        </tr>
+        <tr>
+          <td class="param-name">Water Freshness at Interface</td>
+          <td class="sys-std">Static / saturates locally</td>
+          <td class="sys-rec">Continuously refreshed</td>
+          <td class="param-desc">Fresh water at the interface maintains a steeper concentration gradient, preventing saturation stall.</td>
+        </tr>
+        <tr>
+          <td class="param-name">Thermal Cycling</td>
+          <td class="sys-std">Single thermal shock</td>
+          <td class="sys-rec">Multiple cooling passes</td>
+          <td class="param-desc">Repeated cooling allows more condensation of high-MW compounds (tars, waxes, some PAHs) per pass.</td>
+        </tr>
+        <tr>
+          <td class="param-name">Smoke Velocity</td>
+          <td class="sys-std">Higher (direct path)</td>
+          <td class="sys-rec">Lower (indirect path)</td>
+          <td class="param-desc">Slower transit = more residence time in water. Benefits all interaction types but especially diffusion.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <div class="scorecard">
-    <div class="scorecard-grid">
+<!-- Figure 3: Dual comparative bar chart -->
+<div class="figure-wrapper">
+  <div class="figure-label">Figure 3. <span>Side-by-side interaction rates (%) &mdash; standard percolator vs. recycler, with delta (&#916;) showing the recycler's amplification effect.</span></div>
 
-      <div class="score-card score-card-border-good">
-        <div class="score-card-top">
-          <div class="score-card-name">Irritant Removal</div>
-          <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">Removed</span>
-            <span class="score-stat-value" style="color:var(--good)">85&ndash;92%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Compounds</span>
-            <span class="score-stat-value">4</span>
-          </div>
-        </div>
-        <div class="score-card-insight">Aldehydes, HCN, phenols, and tars are the primary throat and lung irritants in smoke.<sup class="ref">1,3</sup> Water captures the vast majority through polar dissolution and condensation. Directly reduces coughing, throat burn, and next-day soreness.</div>
+  <div class="dual-chart">
+    <div class="dual-legend">
+      <div class="dual-legend-item"><div class="dual-legend-swatch swatch-std"></div> <span class="sys-std">Standard Perc</span></div>
+      <div class="dual-legend-item"><div class="dual-legend-swatch swatch-rec"></div> <span class="sys-rec">Recycler</span></div>
+      <div class="dual-legend-item" style="margin-left:auto; font-size:0.72rem; color:var(--muted);">&#916; = recycler change</div>
+    </div>
+
+    <!-- Heavily Removed -->
+    <div class="dual-cat-sep"><span class="dcat-label">Heavily Removed</span><span class="dcat-line"></span></div>
+
+    <div class="dual-row">
+      <div class="dual-row-label">Acrolein / Aldehydes</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="92"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="97"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">92%</span><span class="dv-rec">97%</span></div>
+      <div class="dual-delta delta-pos">+5</div>
+    </div>
 
-      <div class="score-card score-card-border-good">
-        <div class="score-card-top">
-          <div class="score-card-name">Particulate Capture</div>
-          <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">Removed</span>
-            <span class="score-stat-value" style="color:var(--good)">~88%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Mechanism</span>
-            <span class="score-stat-value" style="font-size:0.82rem;">Mechanical</span>
-          </div>
-        </div>
-        <div class="score-card-insight">Solid ash and particulate matter are physically trapped &mdash; they can't ride the gas through liquid.<sup class="ref">2</sup> Removes the &ldquo;harshness&rdquo; that makes unfiltered hits feel rough. Visible as residue buildup in used water.</div>
+    <div class="dual-row">
+      <div class="dual-row-label">Hydrogen Cyanide</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="90"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="96"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">90%</span><span class="dv-rec">96%</span></div>
+      <div class="dual-delta delta-pos">+6</div>
+    </div>
 
-      <div class="score-card score-card-border-good">
-        <div class="score-card-top">
-          <div class="score-card-name">Active Compound Delivery</div>
-          <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">Retained</span>
-            <span class="score-stat-value" style="color:var(--good)">~95%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Log P (THC)</span>
-            <span class="score-stat-value">~7</span>
-          </div>
-        </div>
-        <div class="score-card-insight">Cannabinoids are extremely hydrophobic (log P &asymp; 7).<sup class="ref">4</sup> Water has almost zero affinity for them. You keep nearly all of what you're after. Potency per hit is minimally affected.</div>
+    <div class="dual-row">
+      <div class="dual-row-label">Particulate / Ash</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="88"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="94"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">88%</span><span class="dv-rec">94%</span></div>
+      <div class="dual-delta delta-pos">+6</div>
+    </div>
 
-      <div class="score-card score-card-border-mixed">
-        <div class="score-card-top">
-          <div class="score-card-name">Flavor &amp; Aroma</div>
-          <span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Cost</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">Lost</span>
-            <span class="score-stat-value" style="color:var(--mixed)">~25%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Compounds</span>
-            <span class="score-stat-value">Terpenes</span>
-          </div>
-        </div>
-        <div class="score-card-insight">Myrcene, limonene, and other terpenes sit at intermediate polarity.<sup class="ref">5</sup> About a quarter dissolve or condense out. You get smoother hits but duller flavor. This is the &ldquo;selectivity tax.&rdquo; Cold water reduces this loss.</div>
+    <div class="dual-row">
+      <div class="dual-row-label">Phenols</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="85"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="93"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">85%</span><span class="dv-rec">93%</span></div>
+      <div class="dual-delta delta-pos">+8</div>
+    </div>
 
-      <div class="score-card score-card-border-mixed">
-        <div class="score-card-top">
-          <div class="score-card-name">Carcinogen Reduction</div>
-          <span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Partial</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">PAH Removed</span>
-            <span class="score-stat-value" style="color:var(--mixed)">~45%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Complete?</span>
-            <span class="score-stat-value" style="font-size:0.82rem;">No</span>
-          </div>
-        </div>
-        <div class="score-card-insight">PAHs like benzopyrene are mostly hydrophobic, so only partial condensation occurs.<sup class="ref">6</sup> You get some reduction, but water filtration should not be considered full carcinogen protection. Better than nothing, not a solution.</div>
+    <div class="dual-row">
+      <div class="dual-row-label">Tars (heavy)</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="80"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="90"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">80%</span><span class="dv-rec">90%</span></div>
+      <div class="dual-delta delta-pos">+10</div>
+    </div>
 
-      <div class="score-card score-card-border-bad">
-        <div class="score-card-top">
-          <div class="score-card-name">CO Exposure</div>
-          <span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Blind Spot</span>
-        </div>
-        <div class="score-card-stats">
-          <div class="score-stat">
-            <span class="score-stat-label">Removed</span>
-            <span class="score-stat-value" style="color:var(--bad)">~4%</span>
-          </div>
-          <div class="score-stat">
-            <span class="score-stat-label">Passes</span>
-            <span class="score-stat-value" style="color:var(--bad)">~96%</span>
-          </div>
-        </div>
-        <div class="score-card-insight">Carbon monoxide has almost zero aqueous solubility.<sup class="ref">7</sup> It passes through the water as if it weren't there. This is the one meaningful toxin the system cannot address. Ventilation is the only mitigation.</div>
+    <!-- Moderately Removed -->
+    <div class="dual-cat-sep"><span class="dcat-label">Moderately Removed</span><span class="dcat-line"></span></div>
+
+    <div class="dual-row">
+      <div class="dual-row-label">Lipids / Waxes</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="70"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="82"></div></div>
       </div>
+      <div class="dual-values"><span class="dv-std">70%</span><span class="dv-rec">82%</span></div>
+      <div class="dual-delta delta-pos">+12</div>
+    </div>
 
+    <div class="dual-row">
+      <div class="dual-row-label">PAHs</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="45"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="60"></div></div>
+      </div>
+      <div class="dual-values"><span class="dv-std">45%</span><span class="dv-rec">60%</span></div>
+      <div class="dual-delta delta-pos">+15</div>
+    </div>
+
+    <!-- Tradeoff Zone -->
+    <div class="dual-cat-sep"><span class="dcat-label">Tradeoff Zone</span><span class="dcat-line"></span></div>
+
+    <div class="dual-row">
+      <div class="dual-row-label">Terpenes</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="25"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="38"></div></div>
+      </div>
+      <div class="dual-values"><span class="dv-std">~25%</span><span class="dv-rec">~38%</span></div>
+      <div class="dual-delta delta-neg">+13</div>
+    </div>
+
+    <!-- Passes Through -->
+    <div class="dual-cat-sep"><span class="dcat-label">Passes Through</span><span class="dcat-line"></span></div>
+
+    <div class="dual-row">
+      <div class="dual-row-label">Cannabinoids</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="5"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="7"></div></div>
+      </div>
+      <div class="dual-values"><span class="dv-std">~5%</span><span class="dv-rec">~7%</span></div>
+      <div class="dual-delta delta-flat">+2</div>
+    </div>
+
+    <div class="dual-row">
+      <div class="dual-row-label">Carbon Monoxide</div>
+      <div class="dual-bars">
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-std" data-width="4"></div></div>
+        <div class="dual-bar-track"><div class="dual-bar-fill bar-rec" data-width="6"></div></div>
+      </div>
+      <div class="dual-values"><span class="dv-std">~4%</span><span class="dv-rec">~6%</span></div>
+      <div class="dual-delta delta-flat">+2</div>
+    </div>
+
+    <div class="dual-axis">
+      <div class="axis-label-area">Compound</div>
+      <div class="axis-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+      <div></div>
+      <div style="font-size:0.7rem; color:var(--muted); text-align:center; font-style:italic;">&#916;</div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- Table 1: Full Data Table -->
-<!-- ============================================================ -->
+<!-- Figure 4: Net Outcome Comparison -->
 <div class="figure-wrapper">
-  <div class="figure-label">Table 1. <span>Compound-level interaction data with physical mechanism, desirability outcome, and practical impact.</span></div>
+  <div class="figure-label">Figure 4. <span>Practical net outcome comparison &mdash; what the recycler buys you, what it costs you, and what stays the same.</span></div>
 
+  <div class="compare-grid">
+
+    <div class="compare-card" style="border-left: 3px solid var(--good);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">Irritant &amp; Toxin Removal</div>
+        <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Improved</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">85&ndash;92%</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">93&ndash;97%</div>
+        </div>
+      </div>
+      <div class="compare-insight">The recycler's continuous loop pushes polar compounds (aldehydes, HCN, phenols) toward near-complete removal. Multiple passes through fresh water approach theoretical solubility limits. The difference is felt as noticeably cooler, less irritating vapor &mdash; significantly less throat burn and cough on exhale.</div>
+    </div>
+
+    <div class="compare-card" style="border-left: 3px solid var(--good);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">Tar &amp; Particulate Capture</div>
+        <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Improved</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">80&ndash;88%</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">90&ndash;94%</div>
+        </div>
+      </div>
+      <div class="compare-insight">Multiple thermal shock cycles crash out more heavy compounds each pass. Particulate capture improves because turbulent recycling forces more complete gas&ndash;liquid contact. The water in a recycler dirties faster &mdash; visible proof of incremental capture.</div>
+    </div>
+
+    <div class="compare-card" style="border-left: 3px solid var(--good);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">PAH / Carcinogen Reduction</div>
+        <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Improved</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">~45%</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">~60%</div>
+        </div>
+      </div>
+      <div class="compare-insight">This is where the recycler makes its biggest proportional gain. PAHs are mostly hydrophobic, but additional condensation passes and extended contact time claw back another 15 percentage points. Still not complete protection, but a meaningful improvement in carcinogen load.</div>
+    </div>
+
+    <div class="compare-card" style="border-left: 3px solid var(--bad);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">Terpene / Flavor Loss</div>
+        <span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Worse</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">~25% lost</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">~38% lost</div>
+        </div>
+      </div>
+      <div class="compare-insight">This is the cost. Every additional water pass strips more terpenes. The recycler's strength &mdash; relentless contact &mdash; works against you here. Strain-specific flavor profiles get noticeably flattened. Users describe recycler hits as &ldquo;cleaner but blander.&rdquo; Cold water and faster draws partially mitigate this.</div>
+    </div>
+
+    <div class="compare-card" style="border-left: 3px solid var(--good);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">Cannabinoid Preservation</div>
+        <span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Intact</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">~95% kept</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">~93% kept</div>
+        </div>
+      </div>
+      <div class="compare-insight">The extra contact barely matters here. Log P ~7 means even 4&times; the water exposure doesn't meaningfully dissolve THC/CBD. The ~2% additional loss is within noise. Potency per hit is functionally identical between systems.</div>
+    </div>
+
+    <div class="compare-card" style="border-left: 3px solid var(--neutral);">
+      <div class="compare-card-header">
+        <div class="compare-card-title">CO Exposure</div>
+        <span class="verdict verdict-neutral"><i class="verdict-icon">&#8226;</i> Same</span>
+      </div>
+      <div class="compare-card-body">
+        <div class="compare-sys compare-sys-std">
+          <div class="compare-sys-label compare-sys-label-std">Standard Perc</div>
+          <div class="compare-sys-value" style="color:var(--std)">~96% passes</div>
+        </div>
+        <div class="compare-sys compare-sys-rec">
+          <div class="compare-sys-label compare-sys-label-rec">Recycler</div>
+          <div class="compare-sys-value" style="color:var(--rec)">~94% passes</div>
+        </div>
+      </div>
+      <div class="compare-insight">CO's solubility is so low that even quadrupled contact time barely registers. The recycler captures maybe 2 extra percentage points &mdash; functionally meaningless. The blind spot remains. Neither architecture addresses CO; ventilation is still the only answer.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART III: DATA TABLE -->
+<!-- ============================================================ -->
+<div class="section-divider">
+  <h2>III. Full Comparative Data</h2>
+  <div class="divider-line"></div>
+</div>
+
+<div class="figure-wrapper">
+  <div class="figure-label">Table 2. <span>Compound-level interaction data across both system architectures.</span></div>
   <div class="table-container">
     <table>
       <thead>
         <tr>
           <th>Compound</th>
           <th>Mechanism</th>
-          <th>Rate</th>
+          <th style="color:var(--std)">Std. Perc</th>
+          <th style="color:var(--rec)">Recycler</th>
+          <th>&#916;</th>
           <th>Outcome</th>
-          <th>Practical Impact</th>
-          <th>Notes</th>
+          <th>Why the Recycler Differs</th>
         </tr>
       </thead>
       <tbody>
         <tr class="row-heavy">
           <td class="cell-compound">Acrolein / Aldehydes</td>
           <td>Aqueous Diffusion</td>
-          <td class="cell-rate val-heavy">~92%</td>
+          <td class="cell-rate" style="color:var(--std)">~92%</td>
+          <td class="cell-rate" style="color:var(--rec)">~97%</td>
+          <td class="cell-rate delta-pos">+5</td>
           <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Sharply reduces throat irritation and cough reflex. Primary driver of &ldquo;smoothness&rdquo; improvement.<sup class="ref">1</sup></td>
-          <td class="cell-notes">Polar, water-soluble combustion byproducts dissolved at bubble interface.</td>
+          <td class="cell-notes">Already high; extended contact approaches saturation limit. Diminishing returns but still meaningful for the most irritating fraction.</td>
         </tr>
         <tr class="row-heavy">
           <td class="cell-compound">Hydrogen Cyanide</td>
           <td>Aqueous Diffusion</td>
-          <td class="cell-rate val-heavy">~90%</td>
+          <td class="cell-rate" style="color:var(--std)">~90%</td>
+          <td class="cell-rate" style="color:var(--rec)">~96%</td>
+          <td class="cell-rate delta-pos">+6</td>
           <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Trace-level toxin in smoke, largely neutralized. Reduces systemic toxicity per session.<sup class="ref">3</sup></td>
-          <td class="cell-notes">Extremely high Henry's Law constant drives aggressive dissolution.</td>
+          <td class="cell-notes">Extremely soluble; fresh water at the interface prevents local saturation from capping removal.</td>
         </tr>
         <tr class="row-heavy">
           <td class="cell-compound">Particulate / Ash</td>
           <td>Mechanical Filtration</td>
-          <td class="cell-rate val-heavy">~88%</td>
+          <td class="cell-rate" style="color:var(--std)">~88%</td>
+          <td class="cell-rate" style="color:var(--rec)">~94%</td>
+          <td class="cell-rate delta-pos">+6</td>
           <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Removes &ldquo;harsh&rdquo; gritty quality from inhale. Reduces airway deposit load.<sup class="ref">2</sup></td>
-          <td class="cell-notes">Physical trapping. Solid particles cannot traverse liquid phase.</td>
+          <td class="cell-notes">Turbulent recycling forces more complete gas&ndash;liquid mixing; fewer particles escape on secondary passes.</td>
         </tr>
         <tr class="row-heavy">
           <td class="cell-compound">Phenols</td>
           <td>Aqueous Diffusion</td>
-          <td class="cell-rate val-heavy">~85%</td>
+          <td class="cell-rate" style="color:var(--std)">~85%</td>
+          <td class="cell-rate" style="color:var(--rec)">~93%</td>
+          <td class="cell-rate delta-pos">+8</td>
           <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Phenols are mucosal irritants. Removal improves comfort and reduces inflammation response.<sup class="ref">1</sup></td>
-          <td class="cell-notes">Polar hydroxyl group provides immediate aqueous solvation.</td>
+          <td class="cell-notes">Phenols have more room to improve than aldehydes. The extra passes close the gap to near-complete removal.</td>
         </tr>
         <tr class="row-heavy">
           <td class="cell-compound">Tars (heavy)</td>
           <td>Condensation</td>
-          <td class="cell-rate val-heavy">~80%</td>
+          <td class="cell-rate" style="color:var(--std)">~80%</td>
+          <td class="cell-rate" style="color:var(--rec)">~90%</td>
+          <td class="cell-rate delta-pos">+10</td>
           <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Reduces sticky residue reaching airways. Visible as dark accumulation in water over time.<sup class="ref">2</sup></td>
-          <td class="cell-notes">High MW compounds crash out of vapor phase at water temperature.</td>
+          <td class="cell-notes">Multiple thermal cycles give heavy MW compounds more chances to condense. Biggest absolute gain in this category.</td>
         </tr>
         <tr class="row-mod">
           <td class="cell-compound">Lipids / Waxes</td>
           <td>Condensation</td>
-          <td class="cell-rate val-mod">~70%</td>
+          <td class="cell-rate" style="color:var(--std)">~70%</td>
+          <td class="cell-rate" style="color:var(--rec)">~82%</td>
+          <td class="cell-rate delta-pos">+12</td>
           <td><span class="verdict verdict-neutral"><i class="verdict-icon">&#8226;</i> Neutral</span></td>
-          <td class="cell-impact">These are non-toxic plant waxes. Removal neither helps nor hurts &mdash; cosmetic only.</td>
-          <td class="cell-notes">Native plant lipids; nonvolatile fraction condenses on cooling.</td>
+          <td class="cell-notes">Non-toxic waxes; improved removal is cosmetic. Recycler water gets an oilier film faster.</td>
         </tr>
         <tr class="row-mod">
           <td class="cell-compound">PAHs</td>
           <td>Condensation + Partial Diffusion</td>
-          <td class="cell-rate val-mod">~45%</td>
-          <td><span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Partial</span></td>
-          <td class="cell-impact">Some carcinogen reduction, but majority still passes. Insufficient for full protection.<sup class="ref">6</sup></td>
-          <td class="cell-notes">Mostly hydrophobic; limited aqueous solubility yields mixed results.</td>
+          <td class="cell-rate" style="color:var(--std)">~45%</td>
+          <td class="cell-rate" style="color:var(--rec)">~60%</td>
+          <td class="cell-rate delta-pos">+15</td>
+          <td><span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Better</span></td>
+          <td class="cell-notes">Largest proportional gain. Still not enough for full protection, but a meaningful step. Extra condensation passes help most.</td>
         </tr>
         <tr class="row-trade">
           <td class="cell-compound">Terpenes</td>
           <td>Partial Diffusion + Condensation</td>
-          <td class="cell-rate val-trade">~25%</td>
-          <td><span class="verdict verdict-mixed"><i class="verdict-icon">&#9651;</i> Cost</span></td>
-          <td class="cell-impact">Noticeable flavor and aroma dulling. Strain-specific profiles lose nuance. Cold water helps preserve more.<sup class="ref">5</sup></td>
-          <td class="cell-notes">Slightly polar; partial dissolution and condensation at intermediate log P.</td>
+          <td class="cell-rate" style="color:var(--std)">~25%</td>
+          <td class="cell-rate" style="color:var(--rec)">~38%</td>
+          <td class="cell-rate delta-neg">+13</td>
+          <td><span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Higher Cost</span></td>
+          <td class="cell-notes">The recycler tax. Same mechanism that improves toxin removal also strips more flavor. The selectivity gap narrows here.</td>
         </tr>
         <tr class="row-pass">
           <td class="cell-compound">Cannabinoids</td>
           <td>Minimal Interaction</td>
-          <td class="cell-rate val-pass">~5%</td>
-          <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Ideal</span></td>
-          <td class="cell-impact">Potency is effectively preserved. Negligible active compound waste per session.<sup class="ref">4</sup></td>
-          <td class="cell-notes">Log P ~7 (THC). Maximally hydrophobic; water barely interacts.</td>
+          <td class="cell-rate" style="color:var(--std)">~5%</td>
+          <td class="cell-rate" style="color:var(--rec)">~7%</td>
+          <td class="cell-rate delta-flat">+2</td>
+          <td><span class="verdict verdict-good"><i class="verdict-icon">&#10003;</i> Intact</span></td>
+          <td class="cell-notes">Hydrophobicity is absolute enough that extra contact is nearly irrelevant. Both systems preserve potency.</td>
         </tr>
         <tr class="row-pass">
           <td class="cell-compound">Carbon Monoxide</td>
           <td>Minimal Diffusion</td>
-          <td class="cell-rate val-pass">~4%</td>
-          <td><span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Risk</span></td>
-          <td class="cell-impact">Primary system blind spot. CO passes through unaffected. Ventilation is the only practical mitigation.<sup class="ref">7</sup></td>
-          <td class="cell-notes">Very low Henry's Law solubility constant. Cannot be addressed by aqueous filtration.</td>
+          <td class="cell-rate" style="color:var(--std)">~4%</td>
+          <td class="cell-rate" style="color:var(--rec)">~6%</td>
+          <td class="cell-rate delta-flat">+2</td>
+          <td><span class="verdict verdict-bad"><i class="verdict-icon">&#10007;</i> Blind Spot</span></td>
+          <td class="cell-notes">Insolubility is too extreme for any reasonable water contact to overcome. Neither system addresses CO.</td>
         </tr>
       </tbody>
     </table>
@@ -935,9 +807,10 @@
 <!-- ============================================================ -->
 <div class="annotation">
   <h3>Interpretive Summary</h3>
-  <p>Water-mediated percolation functions as a <em>hydrophobicity-dependent sorting mechanism</em>. Target compounds (cannabinoids, log P &ge; 7) occupy the maximally hydrophobic end of the spectrum and pass through with minimal loss (~5%). Harmful combustion byproducts&mdash;aldehydes, HCN, phenols&mdash;are polar and water-soluble, yielding interaction rates of 85&ndash;92%.</p>
-  <p>The principal cost is a ~25% attenuation of terpene content (the &ldquo;selectivity tax&rdquo;), driven by their intermediate polarity. The system's blind spot is <em>carbon monoxide</em>, which passes through at ~96% due to its exceptionally low aqueous solubility&mdash;the one significant toxin this filtration method does not address.</p>
-  <p><strong>Practical bottom line:</strong> The system removes what hurts you, keeps what you want, slightly dulls what you taste, and completely misses CO. For harm reduction, it's remarkably well-aligned by chemistry alone &mdash; the one gap requires ventilation, not better filtration.</p>
+  <p>The recycler amplifies the standard percolator's sorting mechanism across the board. For <em>everything water can already remove</em>, the recycler removes more of it: irritants go from 85&ndash;92% to 93&ndash;97%, tars from 80% to 90%, and PAHs see the largest proportional jump from 45% to 60%.</p>
+  <p>The cost scales proportionally. Terpene loss increases from ~25% to ~38% &mdash; roughly half again more flavor stripped. The &ldquo;cleaner but blander&rdquo; tradeoff becomes more pronounced. For users who prioritize smoothness and harm reduction over flavor fidelity, this is a net win. For terp-chasers, it's a net loss.</p>
+  <p><strong>What doesn't change:</strong> Cannabinoid delivery remains functionally identical (~93&ndash;95% preserved). CO remains untouched by either system. The fundamental chemistry hasn't changed &mdash; the recycler just dials the volume knob on the same hydrophobicity-dependent filter.</p>
+  <p><strong>Practical bottom line:</strong> A recycler is the harm-reduction-optimized choice. A standard perc is the flavor-optimized choice. Both preserve potency equally. Neither addresses CO.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -946,30 +819,32 @@
 <div class="references">
   <h3>References &amp; Supporting Literature</h3>
   <ol class="ref-list">
-    <li>Moir, D. <em>et al.</em> &ldquo;A comparison of mainstream and sidestream marijuana and tobacco cigarette smoke produced under two machine smoking conditions.&rdquo; <em>Chemical Research in Toxicology</em>, 21(2), 494&ndash;502, 2008. &mdash; Characterizes aldehyde, phenol, and HCN levels in cannabis smoke.</li>
-    <li>Rickert, W.S. <em>et al.</em> &ldquo;Effect of smoking conditions and methods of collection on the mutagenicity and cytotoxicity of marijuana smoke condensate.&rdquo; <em>Journal of Toxicology and Environmental Health</em>, 9(4), 1982. &mdash; Quantifies particulate and tar yields under varying filtration.</li>
-    <li>Graves, B.M. <em>et al.</em> &ldquo;Comprehensive characterization of mainstream marijuana and tobacco smoke.&rdquo; <em>Scientific Reports</em>, 10, 7160, 2020. &mdash; Profiles HCN, ammonia, and other gas-phase toxins in cannabis combustion.</li>
-    <li>Thomas, B.F. and ElSohly, M.A. <em>The Analytical Chemistry of Cannabis</em>, Elsevier, 2016. &mdash; Provides partition coefficient (log P) data for major cannabinoids demonstrating extreme hydrophobicity.</li>
-    <li>Russo, E.B. &ldquo;Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects.&rdquo; <em>British Journal of Pharmacology</em>, 163(7), 1344&ndash;1364, 2011. &mdash; Characterizes terpene volatility, polarity, and role in sensory experience.</li>
-    <li>IARC Monographs on the Evaluation of Carcinogenic Risks to Humans, Vol. 92: <em>Some Non-heterocyclic Polycyclic Aromatic Hydrocarbons and Some Related Exposures</em>. World Health Organization, 2010. &mdash; Reference for PAH carcinogenicity and physicochemical properties.</li>
-    <li>Sander, R. &ldquo;Compilation of Henry's law constants (version 4.0) for water as solvent.&rdquo; <em>Atmospheric Chemistry and Physics</em>, 15, 4399&ndash;4981, 2015. &mdash; Comprehensive Henry's Law constant database; confirms CO's extremely low aqueous solubility (K<sub>H</sub> &asymp; 9.5 &times; 10<sup>&minus;4</sup> mol/L&middot;atm at 298K).</li>
-    <li>Gieringer, D. <em>et al.</em> &ldquo;Cannabis vaporizer combines efficient delivery of THC with effective suppression of pyrolytic compounds.&rdquo; <em>Journal of Cannabis Therapeutics</em>, 4(1), 7&ndash;27, 2004. &mdash; Compares filtration efficacy across delivery methods; relevant baseline for water-mediated removal.</li>
-    <li>Lanz, C. <em>et al.</em> &ldquo;Medicinal cannabis: in vitro validation of vaporizers for the smoke-free inhalation of cannabis.&rdquo; <em>PLoS ONE</em>, 11(1), e0147286, 2016. &mdash; Additional data on cannabinoid recovery rates across filtration conditions.</li>
+    <li>Moir, D. <em>et al.</em> &ldquo;A comparison of mainstream and sidestream marijuana and tobacco cigarette smoke produced under two machine smoking conditions.&rdquo; <em>Chemical Research in Toxicology</em>, 21(2), 494&ndash;502, 2008.</li>
+    <li>Rickert, W.S. <em>et al.</em> &ldquo;Effect of smoking conditions and methods of collection on the mutagenicity and cytotoxicity of marijuana smoke condensate.&rdquo; <em>Journal of Toxicology and Environmental Health</em>, 9(4), 1982.</li>
+    <li>Graves, B.M. <em>et al.</em> &ldquo;Comprehensive characterization of mainstream marijuana and tobacco smoke.&rdquo; <em>Scientific Reports</em>, 10, 7160, 2020.</li>
+    <li>Thomas, B.F. and ElSohly, M.A. <em>The Analytical Chemistry of Cannabis</em>, Elsevier, 2016. &mdash; Log P data for cannabinoids.</li>
+    <li>Russo, E.B. &ldquo;Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects.&rdquo; <em>British Journal of Pharmacology</em>, 163(7), 1344&ndash;1364, 2011.</li>
+    <li>IARC Monographs, Vol. 92: <em>Some Non-heterocyclic Polycyclic Aromatic Hydrocarbons</em>. WHO, 2010.</li>
+    <li>Sander, R. &ldquo;Compilation of Henry's law constants (version 4.0) for water as solvent.&rdquo; <em>Atmospheric Chemistry and Physics</em>, 15, 4399&ndash;4981, 2015.</li>
+    <li>Gieringer, D. <em>et al.</em> &ldquo;Cannabis vaporizer combines efficient delivery of THC with effective suppression of pyrolytic compounds.&rdquo; <em>Journal of Cannabis Therapeutics</em>, 4(1), 7&ndash;27, 2004.</li>
+    <li>Lanz, C. <em>et al.</em> &ldquo;Medicinal cannabis: in vitro validation of vaporizers for the smoke-free inhalation of cannabis.&rdquo; <em>PLoS ONE</em>, 11(1), e0147286, 2016.</li>
+    <li>Cussler, E.L. <em>Diffusion: Mass Transfer in Fluid Systems</em>, 3rd ed., Cambridge University Press, 2009. &mdash; Theoretical framework for gas&ndash;liquid mass transfer, bubble surface area, and contact time effects on solute diffusion rates.</li>
+    <li>Treybal, R.E. <em>Mass-Transfer Operations</em>, 3rd ed., McGraw-Hill, 1980. &mdash; Engineering reference for multi-stage gas absorption and the effect of repeated contact passes on removal efficiency.</li>
+    <li>Danckwerts, P.V. &ldquo;Significance of liquid-film coefficients in gas absorption.&rdquo; <em>Industrial &amp; Engineering Chemistry</em>, 43(6), 1460&ndash;1467, 1951. &mdash; Surface renewal theory underpinning why fresh water at the interface (recycler advantage) maintains steeper concentration gradients.</li>
   </ol>
 </div>
 
 <footer>
-  <p><em>Note:</em> Interaction rates are approximate estimates derived from physical chemistry principles (Henry's Law constants, log P values, condensation thermodynamics) and available empirical literature. Values represent typical conditions and may vary with water temperature, contact time, percolator geometry, and draw rate.</p>
+  <p><em>Note:</em> Baseline interaction rates are approximate estimates derived from physical chemistry principles (Henry's Law constants, partition coefficients, condensation thermodynamics). Recycler interpolations are modeled from the increased contact time (~3&ndash;4&times;), surface area (~2.5&ndash;4&times;), and multi-pass geometry characteristic of recycler designs, applied against the same solubility and condensation parameters. Actual values will vary with water temperature, draw rate, percolator geometry, and chamber volume.</p>
   <p>Mechanisms: Aqueous Diffusion = dissolution into water via gas&ndash;liquid interface; Mechanical Filtration = physical trapping of solid particulates; Condensation = vapor-phase crash-out at reduced temperature.</p>
 </footer>
 
 <script>
-  // Animate bars on load
   document.addEventListener('DOMContentLoaded', () => {
-    const bars = document.querySelectorAll('.bar-fill');
+    const allBars = document.querySelectorAll('.bar-fill, .dual-bar-fill');
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        bars.forEach(bar => {
+        allBars.forEach(bar => {
           bar.classList.add('animate');
           bar.style.width = bar.dataset.width + '%';
         });
