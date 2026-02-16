@@ -277,24 +277,215 @@
   .bar-fill, .dual-bar-fill { width: 0; }
   .bar-fill.animate, .dual-bar-fill.animate { transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 
-  /* Responsive */
-  @media (max-width: 700px) {
-    body { padding: 1.5rem 1rem; }
-    header h1 { font-size: 1.35rem; }
-    .chart-row { grid-template-columns: 130px 1fr 44px 66px; gap: 0.5rem; }
-    .chart-label { font-size: 0.75rem; }
-    .chart-axis { grid-template-columns: 130px 1fr 44px 66px; gap: 0.5rem; }
-    .dual-row { grid-template-columns: 120px 1fr 80px 44px; gap: 0.5rem; }
-    .dual-axis { grid-template-columns: 120px 1fr 80px 44px; gap: 0.5rem; }
-    .scorecard-grid { grid-template-columns: 1fr; }
+  /* ============================================================ */
+  /* Responsive: Tablet (mid-range) */
+  /* ============================================================ */
+  @media (max-width: 900px) {
+    .chart-row { grid-template-columns: 160px 1fr 48px 68px; gap: 0.75rem; }
+    .chart-axis { grid-template-columns: 160px 1fr 48px 68px; gap: 0.75rem; }
+    .dual-row { grid-template-columns: 140px 1fr 90px 48px; gap: 0.6rem; }
+    .dual-axis { grid-template-columns: 140px 1fr 90px 48px; gap: 0.6rem; }
     .compare-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================ */
+  /* Responsive: Mobile — full reflow */
+  /* ============================================================ */
+  @media (max-width: 600px) {
+    body { padding: 1.25rem 0.85rem; max-width: 100%; }
+
+    /* Header */
+    header { padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    header h1 { font-size: 1.2rem; }
+    header .subtitle { font-size: 0.88rem; }
+    header .meta { font-size: 0.7rem; }
+
+    .section-divider { margin: 2rem 0 1.25rem; }
+    .section-divider h2 { font-size: 1.05rem; }
+
+    .figure-wrapper { margin: 1.25rem 0 1.75rem; }
+    .figure-label { font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+    /* ---- Figure 1 bar chart: stack label above bar ---- */
+    .chart-container { padding: 1.25rem 1rem 1rem; }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      grid-template-rows: auto auto;
+      gap: 0.15rem 0.6rem;
+      margin-bottom: 0.75rem;
+      align-items: center;
+    }
+
+    /* Label spans full width on first row */
+    .chart-label {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      text-align: left;
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .chart-label .mechanism { display: inline; margin-left: 0.35rem; }
+
+    /* Bar, value, verdict on second row */
+    .bar-track {
+      grid-column: 1;
+      grid-row: 2;
+      height: 20px;
+    }
+
+    .chart-value {
+      grid-column: 2;
+      grid-row: 2;
+      font-size: 0.82rem;
+      min-width: 36px;
+    }
+
+    .chart-row > div:last-child {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    /* Category separators */
+    .category-sep { margin: 0.75rem 0 0.35rem; }
+
+    /* Axis — hide on mobile, labels are self-evident */
+    .chart-axis { display: none; }
+
+    /* Legend */
+    .legend { gap: 0.75rem 1rem; padding: 0.5rem 0; margin: 0.5rem 0; }
+    .legend-item { font-size: 0.7rem; }
+
+    /* ---- Figure 3 dual bar chart: stack label above paired bars ---- */
+    .dual-chart { padding: 1.25rem 1rem 1rem; }
+
+    .dual-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      grid-template-rows: auto auto;
+      gap: 0.1rem 0.5rem;
+      margin-bottom: 0.7rem;
+      align-items: center;
+    }
+
+    .dual-row-label {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .dual-bars {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .dual-bar-track { height: 12px; }
+
+    .dual-values {
+      grid-column: 2;
+      grid-row: 2;
+      font-size: 0.75rem;
+      min-width: 52px;
+    }
+
+    .dual-delta {
+      grid-column: 3;
+      grid-row: 2;
+      font-size: 0.78rem;
+    }
+
+    .dual-cat-sep { margin: 0.6rem 0 0.2rem; }
+    .dual-axis { display: none; }
+    .dual-legend { gap: 1rem; font-size: 0.72rem; }
+
+    /* ---- Tables: horizontal scroll with hint ---- */
+    .table-container {
+      margin: 1rem 0;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    /* Fade hint on right edge */
+    .table-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to right, transparent, var(--bg));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    table { font-size: 0.75rem; min-width: 580px; }
+    thead th { font-size: 0.73rem; padding: 0.5rem 0.6rem; white-space: nowrap; }
+    tbody td { padding: 0.45rem 0.6rem; }
+    .params-table { min-width: 520px; }
+
+    /* ---- Scorecards & compare cards ---- */
+    .scorecard { padding: 1rem; }
+    .scorecard-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .score-card { padding: 0.85rem 1rem; }
+    .score-card-name { font-size: 0.88rem; }
+    .score-stat-value { font-size: 1rem; }
+
+    .compare-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .compare-card { padding: 1rem 1.1rem; }
+    .compare-card-body { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .compare-sys { padding: 0.5rem 0.6rem; }
+    .compare-sys-value { font-size: 1.1rem; }
+    .compare-card-title { font-size: 0.92rem; }
+
+    /* ---- Methodology ---- */
+    .method-section { padding: 1.25rem 1rem; }
+    .method-section h3 { font-size: 1rem; }
+    .method-section h4 { font-size: 0.88rem; }
+
+    .conf-grid { gap: 0.6rem; }
+    .conf-row { grid-template-columns: 1fr; gap: 0.2rem; padding: 0.6rem 0.7rem; }
+    .conf-tier { font-size: 0.7rem; margin-bottom: 0.1rem; }
+    .conf-compounds { font-size: 0.75rem; }
+    .conf-detail { font-size: 0.73rem; }
+
+    .sens-table { min-width: 500px; }
+
+    /* ---- Annotations ---- */
+    .annotation { padding: 1rem 1.1rem; }
+    .annotation h3 { font-size: 0.92rem; }
+    .annotation p { font-size: 0.8rem; }
+
+    /* ---- References ---- */
+    .ref-list li { font-size: 0.72rem; padding-left: 2rem; text-indent: -2rem; }
+
+    /* ---- Verdict badges: slightly smaller ---- */
+    .verdict { font-size: 0.62rem; padding: 0.1rem 0.4rem; gap: 0.2rem; }
+    .verdict-icon { font-size: 0.7rem; }
+
+    /* ---- Footer ---- */
+    footer { font-size: 0.68rem; }
+  }
+
+  /* ============================================================ */
+  /* Responsive: Very small screens (< 380px) */
+  /* ============================================================ */
+  @media (max-width: 380px) {
+    body { padding: 1rem 0.6rem; }
+    header h1 { font-size: 1.05rem; }
+    .chart-container, .dual-chart { padding: 1rem 0.75rem 0.75rem; }
     .compare-card-body { grid-template-columns: 1fr; }
-    .conf-row { grid-template-columns: 1fr; gap: 0.25rem; }
+    .score-card-stats { flex-wrap: wrap; gap: 0.75rem; }
   }
 
   @media print {
     body { padding: 1rem; }
     .bar-fill, .dual-bar-fill { transition: none; }
+    .chart-axis, .dual-axis { display: grid; }
   }
 </style>
 </head>
