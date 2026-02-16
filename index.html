@@ -131,6 +131,75 @@
   .sys-std { color: var(--std); font-weight: 600; }
   .sys-rec { color: var(--rec); font-weight: 600; }
 
+  /* Mobile param cards (hidden by default, shown on mobile) */
+  .params-mobile { display: none; }
+
+  .param-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .param-card-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .param-card-values {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .param-card-sys {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 90px;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background: var(--table-stripe);
+  }
+
+  .param-card-sys-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .param-card-sys-val {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .param-card-vs {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+    flex-shrink: 0;
+  }
+
+  .param-card-effect {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 0.45rem;
+  }
+
   /* --- Comparative Dual Bar Chart (Figure 3) --- */
   .dual-chart { background: white; border: 1px solid var(--border); padding: 2rem 2rem 1.5rem; }
   .dual-legend { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0 0 1rem; padding: 0.5rem 0 0.75rem; border-bottom: 1px solid var(--border); }
@@ -428,6 +497,10 @@
     tbody td { padding: 0.45rem 0.6rem; }
     .params-table { min-width: 520px; }
 
+    /* Swap table for cards on mobile */
+    .params-desktop { display: none; }
+    .params-mobile { display: block; }
+
     /* ---- Scorecards & compare cards ---- */
     .scorecard { padding: 1rem; }
     .scorecard-grid { grid-template-columns: 1fr; gap: 0.75rem; }
@@ -608,10 +681,12 @@
   <p>A <em>recycler</em> continuously loops water and smoke through two or more chambers via drain tubes, creating repeated gas&ndash;liquid contact cycles within a single draw. This multiplies effective contact time, increases total bubble surface area, and maintains fresher water at the interface (less saturated). The tradeoff: everything water-interactive gets hit harder &mdash; including terpenes.</p>
 </div>
 
-<!-- Table 1: System Parameters -->
+<!-- Table 1: System Parameters — desktop table -->
 <div class="figure-wrapper">
   <div class="figure-label">Table 1. <span>Physical parameter comparison between standard percolator and recycler architectures.</span></div>
-  <div class="table-container">
+
+  <!-- Desktop table (hidden on mobile) -->
+  <div class="table-container params-desktop">
     <table class="params-table">
       <thead>
         <tr>
@@ -660,6 +735,64 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Mobile cards (hidden on desktop) -->
+  <div class="params-mobile">
+    <div class="param-card">
+      <div class="param-card-name">Water Contact Passes</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">1 pass</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">2&ndash;4 passes</span></div>
+      </div>
+      <div class="param-card-effect">Each pass is another opportunity for polar dissolution and condensation. Multiplies interaction probability for soluble compounds.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-card-name">Effective Contact Time</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">~0.3&ndash;0.5 s</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">~1.0&ndash;2.0 s</span></div>
+      </div>
+      <div class="param-card-effect">Longer contact allows more complete equilibration per Henry's Law. Approaches theoretical maximum for highly soluble gases.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-card-name">Bubble Surface Area</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">Baseline (1&times;)</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">~2.5&ndash;4&times;</span></div>
+      </div>
+      <div class="param-card-effect">More surface area = faster mass transfer rate. Diffusion-limited compounds (aldehydes, HCN) benefit most.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-card-name">Water Freshness</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">Static / saturates</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">Continuously refreshed</span></div>
+      </div>
+      <div class="param-card-effect">Fresh water at the interface maintains a steeper concentration gradient, preventing saturation stall.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-card-name">Thermal Cycling</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">Single shock</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">Multiple passes</span></div>
+      </div>
+      <div class="param-card-effect">Repeated cooling allows more condensation of high-MW compounds (tars, waxes, some PAHs) per pass.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-card-name">Smoke Velocity</div>
+      <div class="param-card-values">
+        <div class="param-card-sys"><span class="param-card-sys-label sys-std">Std. Perc</span><span class="param-card-sys-val sys-std">Higher (direct)</span></div>
+        <div class="param-card-vs">vs.</div>
+        <div class="param-card-sys"><span class="param-card-sys-label sys-rec">Recycler</span><span class="param-card-sys-val sys-rec">Lower (indirect)</span></div>
+      </div>
+      <div class="param-card-effect">Slower transit = more residence time in water. Benefits all interaction types but especially diffusion.</div>
+    </div>
   </div>
 </div>
 
